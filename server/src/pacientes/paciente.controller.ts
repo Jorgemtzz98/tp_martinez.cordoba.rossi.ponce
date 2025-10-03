@@ -1,4 +1,4 @@
-const express = require("express")
+
 const app = express()
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -13,12 +13,27 @@ const db = mysql.createConnection({
     database: "sanatorio"
 } );
 
-app.get("/pacientes", (req,res) =>{
+app.post('/api/pacientes',  (req, res) =>{
+    const {nombre, apellido, dni, email, telefono} = req.body
+
+    const paciente = new Paciente(nombre, apellido, dni, email, telefono)
+
+    paciente.push(paciente)
+    res.status(201).send({message: 'Paciente creado', data: paciente})
+})
+
+
+
+app.get('/api/pacientes', (req, res) =>{
+    res.json({data: pacientes})
+})
+
+app.get("/pacientes", (req: Request,res: Response): void =>{
 
     db.query('SELECT * FROM  pacientes',
         (err, result) => {
             if (err){
-                console.log(err)
+                console.error(err)
             }else{
                 res.send(result);
             }
@@ -28,7 +43,7 @@ app.get("/pacientes", (req,res) =>{
 
 
 
-app.post("/create", (req,res) =>{
+app.post("/create", (req: Request,res: Response) =>{
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
     const dni= req.body.dni;
@@ -44,8 +59,4 @@ app.post("/create", (req,res) =>{
             }
         }
     );
-})
-
-app.listen(3001, () =>{
-    console.log("corriendo en el puerto 3001")
 })
