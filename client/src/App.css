@@ -26,3 +26,13 @@
   height: 50px;
   margin-top: 15px;
 }
+
+/* espacio para que el contenido no quede oculto por el navbar */
+.page-content {
+  padding-top: 80px; /* ajustá según la altura real del navbar */
+}
+
+/* pequeños ajustes visuales opcionales */
+.navbar-brand img {
+  object-fit: contain;
+}
