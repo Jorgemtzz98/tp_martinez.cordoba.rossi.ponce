@@ -1,37 +1,67 @@
 import {Request, Response} from 'express'
 import { orm } from '../shared/db/orm.js'
 import { Turno } from './turno.entity.js'
+import { Paciente } from "../pacientes/paciente.entity.js";
+import { Profesional } from "../profesional/profesional.entity.js";
 
 const em = orm.em
 
-async function find(req:Request, res:Response) {
-    try{
-        const turnos = await em.find(Turno, {})
-        res.status(200).json({message: 'Todos los turnos encontrados:', data: turnos})
+async function add(req:Request, res:Response) {
+    const em = orm.em.fork();
+    const { fecha, hora, profesionalId, pacienteDni } = req.body;
+    try {
+        const paciente = await em.findOne(Paciente, { dni: pacienteDni });
+        if (!paciente) {
+        return res.status(404).json({ message: "Paciente no encontrado" });
+        }
+
+        const profesional = await em.findOne(Profesional, { id: profesionalId });
+        if (!profesional) {
+        return res.status(404).json({ message: "Profesional no encontrado" });
+        }
+
+        const turno = em.create(Turno, {
+        fecha,
+        hora,
+        profesional,
+        });
+
+        turno.pacientes.add(paciente);
+
+        await em.persistAndFlush(turno);
+
+        res.status(201).json({
+        message: "Turno creado con éxito",
+        data: turno,
+        });
     } catch (error: any) {
-        res.status(500).json({message: error.message})
+        console.error("Error al crear turno:", error);
+        res.status(500).json({ message: error.message });
     }
-    
 }
+
 
 async function findOne(req:Request, res:Response) {
     try{
         const id = Number.parseInt(req.params.id)
         const turno = await em.findOneOrFail(Turno, {id})
+        
         res.status(200).json({message: 'Turno encontrado:', data: turno})
     } catch (error: any) {        
         res.status(500).json({message: error.message})
     }
 }
 
-async function add(req: Request, res:Response) {
+async function find(req:Request, res:Response) {
     try{
-        const turno = em.create(Turno, req.body)
-        await em.flush()
-        res.status(201).json({message: 'Turno creado con éxito', data: turno})
+        const turnos = await em.find(Turno, {},{
+            populate: ['pacientes', 'profesional'],
+        })
+        res.status(200).json({message: 'Todos los turnos encontrados:', data: turnos})
     } catch (error: any) {
         res.status(500).json({message: error.message})
     }
+    
 }
 
 async function update(req: Request, res:Response) {

@@ -1,6 +1,8 @@
-import { Entity, Property, OneToMany, ManyToMany, Collection, Cascade } from "@mikro-orm/core";
+import { Entity, Property, OneToMany, ManyToOne, ManyToMany, Collection, Cascade } from "@mikro-orm/core";
 import { BaseEntity } from "../shared/db/baseEntity.entity.js"
 import { Paciente } from "../pacientes/paciente.entity.js"
+import { Profesional } from "../profesional/profesional.entity.js"
+
 
 @Entity()
 export class Turno extends BaseEntity {
@@ -12,5 +14,7 @@ export class Turno extends BaseEntity {
         cascade: [Cascade.ALL],
         owner:true,
     } ) 
-    pacientes = new Collection<Paciente>(this)
+    pacientes = new Collection<Paciente>(this)    
+    @ManyToOne(() => Profesional)
+    profesional!: Profesional;
 }

@@ -1,0 +1,18 @@
+import { Entity, Property, OneToMany, ManyToMany, Collection, Cascade, } from "@mikro-orm/core";
+import { BaseEntity } from "../shared/db/baseEntity.entity.js"
+import { Paciente } from "../pacientes/paciente.entity.js"
+import { Profesional } from "../profesional/profesional.entity.js"
+
+@Entity()
+export class ObraSocial extends BaseEntity {
+    @Property({nullable: false})
+    nombre!: string;
+    @ManyToMany (() => Paciente, (paciente) => paciente.obrasocial,{
+        mappedBy: 'pacientes'
+    })
+    pacientes = new Collection <Paciente> (this);
+    @ManyToMany (() => Profesional, (profesional) => profesional.obrasocial,{
+        mappedBy: 'profesionales'
+    })
+    profesionales = new Collection <Paciente> (this);    
+}

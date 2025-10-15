@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import {pacienteRouter} from './pacientes/paciente.router.js'
 import {profesionalRouter} from './profesional/profesional.router.js'
 import {turnoRouter} from './turno/turno.router.js'
+import {especialidadRouter} from './especialidad/especialidad.router.js'
 import {orm, syncSchema} from './shared/db/orm.js' 
 import { RequestContext } from '@mikro-orm/core'    
 import cors from 'cors'
@@ -19,6 +20,7 @@ app.use((req, res, next) =>{
 app.use('/api/pacientes', pacienteRouter)
 app.use('/api/profesionales', profesionalRouter)
 app.use('/api/turnos', turnoRouter)
+app.use('/api/especialidades', especialidadRouter)
 
 app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found'})

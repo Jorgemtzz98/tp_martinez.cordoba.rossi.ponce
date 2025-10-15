@@ -1,110 +1,128 @@
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
-function TurnoForm() {
-  const [fecha, setFecha] = useState("");
-  const [hora, setHora] = useState("");
-  const [pacientes, setPacientes] = useState([]);
-  const [seleccionados, setSeleccionados] = useState([]);
+function CrearTurnoForm() {
+  const [profesionales, setProfesionales] = useState([]);
+  const [form, setForm] = useState({
+    fecha: "",
+    hora: "",
+    profesionalId: "",
+    pacienteDni: "",
+  });
 
-  // 🔹 Traer pacientes del backend
+  const [loading, setLoading] = useState(false);
+  const [mensaje, setMensaje] = useState("");
 
-useEffect(() => {
-  axios.get("http://localhost:4000/pacientes")
-    .then((res) => {
-      console.log("Pacientes cargados:", res.data)
-      setPacientes(res.data.data) // o res.data.pacientes, según el backend
-    })
-    .catch((err) => console.error("Error cargando pacientes:", err))
-}, [])
+  // Cargar lista de profesionales al montar el componente
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/profesionales")
+      .then((res) => setProfesionales(res.data.data))
+      .catch((err) => console.error("Error cargando profesionales:", err));
+  }, []);
 
-  // 🔹 Manejar selección múltiple
-  const handleSelectChange = (e) => {
-    const options = e.target.options;
-    const seleccion = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        seleccion.push(parseInt(options[i].value));
-      }
-    }
-    setSeleccionados(seleccion);
-  };
-
-  // 🔹 Enviar turno
-  const handleSubmit = (e) => {
+  // Manejar envío del formulario
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const nuevoTurno = {
-      fecha,
-      hora,
-      pacientes: seleccionados,
-    };
+    setLoading(true);
+    setMensaje("");
 
-    fetch("http://localhost:3001/api/turnos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(nuevoTurno),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("Turno guardado correctamente ✅");
-        setFecha("");
-        setHora("");
-        setSeleccionados([]);
-      })
-      .catch((err) => console.error("Error al guardar turno:", err));
+    try {
+      const res = await axios.post("http://localhost:3001/api/turnos", {
+        fecha: form.fecha,
+        hora: form.hora,
+        profesionalId: form.profesionalId,
+        pacienteDni: form.pacienteDni,
+      });
+
+      setMensaje(res.data.message || "Turno creado con éxito ✅");
+      setForm({ fecha: "", hora: "", profesionalId: "", pacienteDni: "" });
+    } catch (err) {
+      if (err.response) {
+        setMensaje(err.response.data.message || "Error al crear turno ❌");
+      } else {
+        setMensaje("Error de conexión con el servidor ❌");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="card shadow p-4 mt-4">
-      <h3 className="text-success mb-3">Registrar Turno</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="container mt-4">
+      <h2>Crear nuevo turno</h2>
+      <form onSubmit={handleSubmit} className="p-3 border rounded shadow-sm">
         <div className="mb-3">
-          <label className="form-label">Fecha</label>
+          <label className="form-label">Fecha:</label>
           <input
             type="date"
             className="form-control"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
+            value={form.fecha}
+            onChange={(e) => setForm({ ...form, fecha: e.target.value })}
+            min={new Date().toISOString().split("T")[0]} // 🔒 solo hoy en adelante
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Hora</label>
+          <label className="form-label">Hora:</label>
           <input
             type="time"
             className="form-control"
-            value={hora}
-            onChange={(e) => setHora(e.target.value)}
+            value={form.hora}
+            onChange={(e) => setForm({ ...form, hora: e.target.value })}
+            min="08:00"
+            max="18:00" // 🔒 de 8 a 18hs
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Pacientes</label>
+          <label className="form-label">Profesional:</label>
           <select
-            multiple
             className="form-select"
-            onChange={handleSelectChange}
-            value={seleccionados}
+            value={form.profesionalId}
+            onChange={(e) =>
+              setForm({ ...form, profesionalId: e.target.value })
+            }
+            required
           >
-            {pacientes.map((p) => (
+            <option value="">Seleccione un profesional</option>
+            {profesionales.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.nombre} {p.apellido}
               </option>
             ))}
           </select>
-          <small className="text-muted">
-            (Usá Ctrl o Shift para seleccionar varios pacientes)
-          </small>
         </div>
 
-        <button type="submit" className="btn btn-success w-100">
-          Guardar Turno
+        <div className="mb-3">
+          <label className="form-label">DNI del paciente:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={form.pacienteDni}
+            onChange={(e) => setForm({ ...form, pacienteDni: e.target.value })}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? "Creando..." : "Crear turno"}
         </button>
+
+        {mensaje && (
+          <div
+            className={`mt-3 alert ${
+              mensaje.includes("éxito") ? "alert-success" : "alert-danger"
+            }`}
+          >
+            {mensaje}
+          </div>
+        )}
       </form>
     </div>
   );
 }
 
-export default TurnoForm;
+export default CrearTurnoForm;
