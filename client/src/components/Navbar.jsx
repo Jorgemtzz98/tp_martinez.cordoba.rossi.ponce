@@ -35,7 +35,6 @@ function Navbar() {
           </button>
 
 
-
             <div className="d-flex gap-2">
               <NavLink to="/" className="btn btn-outline-success" onClick={close}>
                 Home
