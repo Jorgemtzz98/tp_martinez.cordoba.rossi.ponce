@@ -4,7 +4,7 @@ import ProfesionalList from "../components/ProfesionalList";
 import "../components/styles/page.css";
 
 function ProfesionalPage() {
-  const [vista, setVista] = useState("menu"); // "menu" | "crear" | "listar"
+  const [vista, setVista] = useState("menu"); 
 
   const renderVista = () => {
     switch (vista) {

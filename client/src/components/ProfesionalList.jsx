@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
+import "../App.css";
 
 function ProfesionalList() {
   const [profesionales, setProfesionales] = useState([]);

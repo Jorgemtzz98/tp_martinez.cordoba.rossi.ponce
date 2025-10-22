@@ -84,7 +84,7 @@ return (
         />
       </div>
     </div>
-    <button type="sumbit" className="submit-btn" onClick={add}>
+    <button className="submit-btn" onClick={add}>
       Registrar
     </button>
   </div>
