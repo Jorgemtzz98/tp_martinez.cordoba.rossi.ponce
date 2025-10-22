@@ -6,10 +6,12 @@ import {
     add,
     update,
     remove,
+    getTurnosOcupados
 } from "./turno.controller.js"
 
 export const turnoRouter = Router()
 
+turnoRouter.get("/ocupados", getTurnosOcupados);
 turnoRouter.get('/', find)
 turnoRouter.get('/:id', findOne); 
 turnoRouter.post('/', add)

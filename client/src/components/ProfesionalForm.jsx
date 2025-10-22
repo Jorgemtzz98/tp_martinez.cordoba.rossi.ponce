@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import "../App.css";
 
 function ProfesionalForm() {
   const [nombre, setNombre] = useState("");
@@ -8,7 +9,7 @@ function ProfesionalForm() {
   const [especialidades, setEspecialidades] = useState([]);
   const [especialidadesSeleccionadas, setEspecialidadesSeleccionadas] = useState([]);
 
-  // Cargar especialidades existentes al montar
+
   useEffect(() => {
     const fetchEspecialidades = async () => {
       try {
@@ -37,7 +38,7 @@ function ProfesionalForm() {
         nombre,
         apellido,
         matricula,
-        especialidades: especialidadesSeleccionadas, // Enviamos IDs de especialidades
+        especialidades: especialidadesSeleccionadas, 
       });
       alert("Profesional registrado correctamente");
       setNombre("");
@@ -93,7 +94,7 @@ function ProfesionalForm() {
               </option>
             ))}
           </select>
-          <small className="text-muted">Mantén Ctrl (o Cmd en Mac) para seleccionar múltiples</small>
+          <small className="text-muted">Mantén Ctrl para seleccionar múltiples</small>
         </div>
       </div>
 

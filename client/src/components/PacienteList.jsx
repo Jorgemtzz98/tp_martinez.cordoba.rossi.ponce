@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
+import "./styles/list.css";
 
 function PacienteList() {
   const [pacientes, setPacientes] = useState([]);
@@ -14,22 +15,22 @@ function PacienteList() {
     }
   };
 
-  return (
-    <div className="card p-3">
-      <h4>Lista de Pacientes</h4>
-      <button className="btn btn-primary mb-3" onClick={getPacientes}>
-        Listar Pacientes
-      </button>
-      {pacientes.map((p, i) => (
-        <div key={i} className="border rounded p-2 mb-2">
-          <div><strong>Nombre:</strong> {p.nombre}</div>
-          <div><strong>Apellido:</strong> {p.apellido}</div>
-          <div><strong>DNI:</strong> {p.dni}</div>
-          <div><strong>Email:</strong> {p.email}</div>
-          <div><strong>Teléfono:</strong> {p.telefono}</div>
-        </div>
-      ))}
-    </div>
+return (
+  <div className="card">
+    <h4>Lista de Pacientes</h4>
+    <button className="submit-btn" onClick={getPacientes}>
+      Listar Pacientes
+    </button>
+    {pacientes.map((p, i) => (
+      <div key={i} className="list-item">
+        <div><strong>Nombre:</strong> {p.nombre}</div>
+        <div><strong>Apellido:</strong> {p.apellido}</div>
+        <div><strong>DNI:</strong> {p.dni}</div>
+        <div><strong>Email:</strong> {p.email}</div>
+        <div><strong>Teléfono:</strong> {p.telefono}</div>
+      </div>
+    ))}
+  </div>
   );
 }
 

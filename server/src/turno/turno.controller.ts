@@ -12,18 +12,30 @@ async function add(req:Request, res:Response) {
     try {
         const paciente = await em.findOne(Paciente, { dni: pacienteDni });
         if (!paciente) {
-        return res.status(404).json({ message: "Paciente no encontrado" });
+            return res.status(404).json({ message: "Paciente no encontrado" });
         }
 
         const profesional = await em.findOne(Profesional, { id: profesionalId });
         if (!profesional) {
-        return res.status(404).json({ message: "Profesional no encontrado" });
+            return res.status(404).json({ message: "Profesional no encontrado" });
+        }
+
+        const turnoExistente = await em.findOne(Turno, {    
+            fecha,
+            hora,
+            profesional,
+        });
+
+        if (turnoExistente) {
+        return res.status(400).json({
+            message: "Ya existe un turno asignado a este profesional en ese horario.",
+        });
         }
 
         const turno = em.create(Turno, {
-        fecha,
-        hora,
-        profesional,
+            fecha,
+            hora,
+            profesional,
         });
 
         turno.pacientes.add(paciente);
@@ -31,8 +43,8 @@ async function add(req:Request, res:Response) {
         await em.persistAndFlush(turno);
 
         res.status(201).json({
-        message: "Turno creado con éxito",
-        data: turno,
+            message: "Turno creado con éxito",
+            data: turno,
         });
     } catch (error: any) {
         console.error("Error al crear turno:", error);
@@ -66,14 +78,14 @@ async function find(req:Request, res:Response) {
 
 async function update(req: Request, res:Response) {
     try{
-    const id = Number.parseInt(req.params.id) 
-    const turno = em.getReference(Turno, id)
-    em.assign(turno, req.body)
-    await em.flush()
-    res.status(200).json({message: 'Modificación completada'})
+        const id = Number.parseInt(req.params.id) 
+        const turno = em.getReference(Turno, id)
+        em.assign(turno, req.body)
+        await em.flush()
+        res.status(200).json({message: 'Modificación completada'})
     } catch (error) {
-    const err = error as Error;
-    res.status(500).json({ message: err.message });
+        const err = error as Error;
+        res.status(500).json({ message: err.message });
 }
 }
 
@@ -88,5 +100,31 @@ async function remove(req: Request, res:Response) {
 
 }
 
-export { find, add, update, remove, findOne}
+async function getTurnosOcupados(req: Request, res: Response) {
+  const em = orm.em.fork();
+  const { profesionalId, fecha } = req.query;
+
+  try {
+    if (!profesionalId || !fecha) {
+      return res.status(400).json({ message: "Faltan parámetros" });
+    }
+
+    const profesionalIdNum = Number(profesionalId);
+
+    const turnos = await em.find(Turno, {
+      profesional: profesionalIdNum,
+      fecha: fecha as string,
+    });
+
+
+    const horasOcupadas = turnos.map((t) => t.hora);
+
+    res.status(200).json(horasOcupadas);
+  } catch (error: any) {
+    console.error("Error obteniendo turnos ocupados:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+}
+
+export { find, add, update, remove, findOne, getTurnosOcupados}
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "../App.css";
 
 function CrearTurnoForm() {
+  const [horasOcupadas, setHorasOcupadas] = useState([]);
   const [profesionales, setProfesionales] = useState([]);
   const [form, setForm] = useState({
     fecha: "",
@@ -9,11 +11,17 @@ function CrearTurnoForm() {
     profesionalId: "",
     pacienteDni: "",
   });
+  
+  const horarios = [
+    "08:00", "08:45", "09:30", "10:15", "11:00", "11:45",
+    "12:30", "13:15", "14:00", "14:45", "15:30", "16:15",
+    "17:00", "17:45",
+  ];
 
   const [loading, setLoading] = useState(false);
   const [mensaje, setMensaje] = useState("");
 
-  // Cargar lista de profesionales al montar el componente
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/profesionales")
@@ -21,7 +29,21 @@ function CrearTurnoForm() {
       .catch((err) => console.error("Error cargando profesionales:", err));
   }, []);
 
-  // Manejar envío del formulario
+  useEffect(() => {
+    if (form.profesionalId && form.fecha) {
+      axios
+        .get("http://localhost:3001/api/turnos/ocupados", {
+          params: {
+            profesionalId: form.profesionalId,
+            fecha: form.fecha,
+          },
+        })
+        .then((res) => setHorasOcupadas(res.data))
+        .catch((err) => console.error("Error cargando horarios ocupados:", err));
+    }
+  }, [form.profesionalId, form.fecha]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -59,22 +81,27 @@ function CrearTurnoForm() {
             className="form-control"
             value={form.fecha}
             onChange={(e) => setForm({ ...form, fecha: e.target.value })}
-            min={new Date().toISOString().split("T")[0]} // 🔒 solo hoy en adelante
+            min={new Date().toISOString().split("T")[0]} 
             required
           />
         </div>
 
         <div className="mb-3">
           <label className="form-label">Hora:</label>
-          <input
-            type="time"
-            className="form-control"
+          <select
+            className="form-select"
             value={form.hora}
             onChange={(e) => setForm({ ...form, hora: e.target.value })}
-            min="08:00"
-            max="18:00" // 🔒 de 8 a 18hs
             required
-          />
+            disabled={!form.profesionalId || !form.fecha}
+          >
+            <option value="">Seleccione un horario</option>
+            {horarios.map((hora) => (
+              <option key={hora} value={hora} disabled={horasOcupadas.includes(hora)}>
+                {hora} {horasOcupadas.includes(hora) ? "⛔ Ocupado" : ""}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="mb-3">

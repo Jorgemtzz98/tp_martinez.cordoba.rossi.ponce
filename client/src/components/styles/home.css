@@ -1,0 +1,55 @@
+.home {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.home-header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-lead {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.home-section {
+  margin-bottom: 3rem;
+}
+
+.home-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.home-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.home-gallery-item {
+  flex: 1 1 300px; 
+  max-width: 350px;
+  text-align: center;
+}
+
+.home-gallery-item img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.home-gallery-item p {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}

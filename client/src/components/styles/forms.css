@@ -1,0 +1,138 @@
+/* ==========================
+   Estilos base (móviles)
+========================== */
+
+.home {
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.home-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.home-lead {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.home-section {
+  margin-bottom: 25px;
+}
+
+.home-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.home-section p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #444;
+}
+
+/* Galería de imágenes */
+.home-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.home-gallery-item {
+  width: 100%;
+  text-align: center;
+}
+
+.home-gallery-item img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.home-gallery-item p {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* ==========================
+   Breakpoint SM ≥ 640px
+========================== */
+@media (min-width: 640px) {
+  .home-header h1 {
+    font-size: 2rem;
+  }
+  .home-lead {
+    font-size: 1rem;
+  }
+  .home-section h2 {
+    font-size: 1.4rem;
+  }
+  .home-section p {
+    font-size: 0.95rem;
+  }
+  .home-gallery-item p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ==========================
+   Breakpoint MD ≥ 768px
+========================== */
+@media (min-width: 768px) {
+  .home-header h1 {
+    font-size: 2.4rem;
+  }
+  .home-lead {
+    font-size: 1.1rem;
+  }
+  .home-section h2 {
+    font-size: 1.6rem;
+  }
+  .home-section p {
+    font-size: 1rem;
+  }
+  .home-gallery {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .home-gallery-item {
+    flex: 1 1 calc(50% - 20px);
+    max-width: 350px;
+  }
+  .home-gallery-item p {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================
+   Breakpoint LG ≥ 1024px
+========================== */
+@media (min-width: 1024px) {
+  .home-header h1 {
+    font-size: 3rem;
+  }
+  .home-lead {
+    font-size: 1.2rem;
+  }
+  .home-section h2 {
+    font-size: 2rem;
+  }
+  .home-section p {
+    font-size: 1.05rem;
+  }
+  .home-gallery-item {
+    flex: 1 1 calc(33% - 20px);
+  }
+}

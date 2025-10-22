@@ -7,7 +7,7 @@ export const orm = await MikroORM.init({
     entitiesTs: ['src/**/*.entity.ts'],
     dbName: 'sanatorio',
     driver: MySqlDriver,
-    clientUrl: 'mysql://root:root@localhost:3306/sanatorio',
+    clientUrl: 'mysql://root:root@localhost:3306/sanatorio', //mysql://username:password@URL/nameDB
     highlighter: new SqlHighlighter(),
     debug: true,
     schemaGenerator: {
@@ -22,3 +22,4 @@ export const syncSchema = async () => {
     const generator = orm.getSchemaGenerator()
     await generator.updateSchema() 
 }
+
