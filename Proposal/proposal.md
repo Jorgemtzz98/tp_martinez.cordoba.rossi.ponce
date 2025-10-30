@@ -2,14 +2,15 @@
 
 ## Grupo
 ### Integrantes
-44946 Martinez Jorge<br>
 51512 Rossi Lisandro<br>
-44094 Ponce Micaela<br>
+
 
 
 ### Repositorios
 * Frontend
+* https://github.com/Jorgemtzz98/tp_martinez.cordoba.rossi.ponce/tree/rama-prueba/client
 * Backend
+* https://github.com/Jorgemtzz98/tp_martinez.cordoba.rossi.ponce/tree/rama-prueba/server
 
 
 ## Tema
@@ -20,7 +21,8 @@ Esta aplicacion contará con los listados y la informacion de usuarios, paciente
 
 
 ### Modelo
-![MODELOS-DER drawio](https://github.com/user-attachments/assets/aaca84b6-f563-4a88-ac3c-db1594a42f2e)
+![MODELOS-DER drawio]<img width="802" height="539" alt="image" src="https://github.com/user-attachments/assets/e50eaedd-7e2c-44bb-bf01-1b6e58cbc008" />
+)
 
 
 ## Alcance Funcional 
@@ -30,9 +32,9 @@ Esta aplicacion contará con los listados y la informacion de usuarios, paciente
 Regularidad:
 |Req|Detalle|
 |:-|:-|
-|CRUD simple|1.Especialidad Médica<br>2. Obra Social<br>3. Estado de Turno|
-|CRUD dependiente|1.CRUD Profesional {depende de} CRUD Especialidad Médica <br>2. CRUD Paciente {depende de} CRUD Obra Social<br> CRUD Practica {depende de} CRUD Profesional y CRUD Obra Social<br>CRUD Turno {depende de} CRUD Estado de turno|
-|Listado<br>+<br>detalle| 1. Listado de turnos disponibles filtrado por especialidad<br> 2. Listado de profesionales filtrado por rango horario y por especialidad|
+|CRUD simple|1.Especialidad Médica<br>2. Obra Social<br>
+|CRUD dependiente|1.CRUD Profesional {depende de} CRUD Especialidad Médica <br>2. CRUD Paciente {depende de} CRUD Obra Social<br> CRUD Turno {depende de} CRUD Paciente y de Crud {Profesional}|
+|Listado<br>+<br>detalle| 1. Listado de profesionales filtrado por especialidad|
 |CUU/Epic|1. Solicitud de turno<br>2.Modificacion/cancelacion de turno|
 
 
