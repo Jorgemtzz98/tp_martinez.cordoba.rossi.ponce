@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"; 
 import Axios from "axios";
 import "./styles/list.css";
 
@@ -15,22 +15,40 @@ function PacienteList() {
     }
   };
 
-return (
-  <div className="card">
-    <h4>Lista de Pacientes</h4>
-    <button className="submit-btn" onClick={getPacientes}>
-      Listar Pacientes
-    </button>
-    {pacientes.map((p, i) => (
-      <div key={i} className="list-item">
-        <div><strong>Nombre:</strong> {p.nombre}</div>
-        <div><strong>Apellido:</strong> {p.apellido}</div>
-        <div><strong>DNI:</strong> {p.dni}</div>
-        <div><strong>Email:</strong> {p.email}</div>
-        <div><strong>Teléfono:</strong> {p.telefono}</div>
-      </div>
-    ))}
-  </div>
+  return (
+    <div className="card">
+      <h4>Lista de Pacientes</h4>
+      <button className="submit-btn" onClick={getPacientes}>
+        Listar Pacientes
+      </button>
+
+      {pacientes.length === 0 && <p className="text-muted">No hay pacientes registrados.</p>}
+
+      {pacientes.length > 0 && (
+        <table className="list-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>DNI</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pacientes.map((p, i) => (
+              <tr key={i}>
+                <td>{p.nombre}</td>
+                <td>{p.apellido}</td>
+                <td>{p.dni}</td>
+                <td>{p.email}</td>
+                <td>{p.telefono}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
 

@@ -4,7 +4,7 @@ import PacienteList from "../components/PacienteList";
 import "../components/styles/page.css";
 
 function PacientePage() {
-  const [vista, setVista] = useState("menu"); 
+  const [vista, setVista] = useState("menu");
 
   const renderVista = () => {
     switch (vista) {
@@ -39,13 +39,13 @@ function PacientePage() {
             <p className="text-muted mb-4">Selecciona una acción para continuar:</p>
             <div className="d-flex justify-content-center gap-3 flex-wrap">
               <button
-                className="btn btn-primary btn-lg"
+                className="btn-sanat btn-sanat-primary btn-sanat-lg"//cambio en boton
                 onClick={() => setVista("crear")}
               >
                 ➕ Registrar Paciente
               </button>
               <button
-                className="btn btn-success btn-lg"
+                className="btn-sanat btn-sanat-info btn-sanat-lg"
                 onClick={() => setVista("listar")}
               >
                 📋 Listar Pacientes

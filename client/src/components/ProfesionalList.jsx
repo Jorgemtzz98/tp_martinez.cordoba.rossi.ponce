@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
-import "../App.css";
+import "./styles/list.css";
 
 function ProfesionalList() {
   const [profesionales, setProfesionales] = useState([]);
@@ -16,24 +16,36 @@ function ProfesionalList() {
   };
 
   return (
-    <div className="card p-3">
+    <div className="card">
       <h4>Lista de Profesionales</h4>
-      <button className="btn btn-primary mb-3" onClick={getProfesionales}>
+      <button className="submit-btn" onClick={getProfesionales}>
         Listar Profesionales
       </button>
-      {profesionales.map((p, i) => (
-        <div key={i} className="border rounded p-2 mb-2">
-          <div><strong>Nombre:</strong> {p.nombre}</div>
-          <div><strong>Apellido:</strong> {p.apellido}</div>
-          <div><strong>Matrícula:</strong> {p.matricula}</div>
-          <div>
-            <strong>Especialidades:</strong>{" "}
-            {p.especialidades && p.especialidades.length > 0
-              ? p.especialidades.map((e) => e.nombre).join(", ")
-              : "Sin especialidades"}
-          </div>
-        </div>
-      ))}
+
+      {profesionales.length === 0 && <p className="text-muted">No hay profesionales registrados.</p>}
+
+      {profesionales.length > 0 && (
+        <table className="list-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Matrícula</th>
+              <th>Especialidades</th>
+            </tr>
+          </thead>
+          <tbody>
+            {profesionales.map((p, i) => (
+              <tr key={i}>
+                <td>{p.nombre}</td>
+                <td>{p.apellido}</td>
+                <td>{p.matricula}</td>
+                <td>{p.especialidades?.map(e => e.nombre).join(", ") || "Sin especialidades"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

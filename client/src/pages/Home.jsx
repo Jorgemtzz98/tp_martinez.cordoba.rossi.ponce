@@ -1,7 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../components/styles/home.css";
 
 function Home() {
+  const instalacionesImages = [
+    {
+      src: "https://media.istockphoto.com/id/185795018/es/foto/sala-de-emergencias-del-hospital.jpg?s=612x612&w=0&k=20&c=aBZKw4dBbXORwnJFhDq374RMHm4MdHXTh-voMFX34oM=",
+      alt: "Entrada del hospital",
+      caption: "Entrada Principal",
+    },
+    {
+      src: "https://img.freepik.com/foto-gratis/cientificos-tiro-medio-posando-juntos_23-2148969982.jpg",
+      alt: "Equipo médico",
+      caption: "Equipo Médico",
+    },
+    {
+      src: "https://src.armincoinc.com/data/img/blog/modern-waiting-room-ideas-that-will-impress-patients/empty-modern-hospital-corridor.jpg",
+      alt: "Sala de pacientes",
+      caption: "Sala de Pacientes",
+    },
+  ];
+
+  const [instalIndex, setInstalIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setInstalIndex((prev) => (prev + 1) % instalacionesImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const equipamientoImages = [
+    {
+      src: "https://www.ucinmedica.com/wp-content/uploads/2020/06/equipo-medico-hospital.jpg",
+      alt: "Equipo Médico 1",
+    },
+    {
+      src: "https://www.hcmarbella.com/wp-content/uploads/2019/01/rayos_new.jpg",
+      alt: "Rayos X",
+    },
+    {
+      src: "https://smel.ptp.it/wp-content/uploads/2022/12/laboratori.jpg",
+      alt: "Laboratorio",
+    },
+  ];
+
+  const [equipIndex, setEquipIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setEquipIndex((prev) => (prev + 1) % equipamientoImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="home">
       <header className="home-header">
@@ -27,30 +78,55 @@ function Home() {
 
       <section className="home-section">
         <h2>Nuestras Instalaciones</h2>
-        <div className="home-gallery">
-          <div className="home-gallery-item">
-            <img
-              src="https://media.istockphoto.com/id/185795018/es/foto/sala-de-emergencias-del-hospital.jpg?s=612x612&w=0&k=20&c=aBZKw4dBbXORwnJFhDq374RMHm4MdHXTh-voMFX34oM="
-              alt="Entrada del hospital"
-            />
-            <p>Entrada Principal</p>
-          </div>
-          <div className="home-gallery-item">
-            <img
-              src="https://img.freepik.com/foto-gratis/cientificos-tiro-medio-posando-juntos_23-2148969982.jpg"
-              alt="Equipo médico"
-            />
-            <p>Equipo Médico</p>
-          </div>
-          <div className="home-gallery-item">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMz3y5tUPUOHyZFo9Wrpr6jWn3gYKNGOk9r5V-SGTshHlrUMTsgmpX97fj7yv4TfTa44&usqp=CAU"
-              alt="Sala de pacientes"
-            />
-            <p>Sala de Pacientes</p>
-          </div>
+        <div className="home-carousel">
+          {instalacionesImages.map((img, index) => (
+            <div
+              key={index}
+              className={`home-carousel-item ${
+                index === instalIndex ? "active" : ""
+              }`}
+            >
+              <img src={img.src} alt={img.alt} />
+              <p>{img.caption}</p>
+            </div>
+          ))}
+        </div>
+        <div className="carousel-dots">
+          {instalacionesImages.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === instalIndex ? "active" : ""}`}
+              onClick={() => setInstalIndex(index)}
+            ></span>
+          ))}
         </div>
       </section>
+
+<section className="home-section">
+  <h2>Equipamiento del Sanatorio</h2>
+  <div className="home-carousel">
+    {equipamientoImages.map((img, index) => (
+      <div
+        key={index}
+        className={`home-carousel-item ${
+          index === equipIndex ? "active" : ""
+        }`}
+      >
+        <img src={img.src} alt={img.alt} />
+      </div>
+    ))}
+  </div>
+  <div className="carousel-dots">
+    {equipamientoImages.map((_, index) => (
+      <span
+        key={index}
+        className={`dot ${index === equipIndex ? "active" : ""}`}
+        onClick={() => setEquipIndex(index)}
+      ></span>
+    ))}
+  </div>
+</section>
+
     </div>
   );
 }
