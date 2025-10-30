@@ -71,14 +71,14 @@ function CrearTurnoForm() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="card">
       <h2>Crear nuevo turno</h2>
-      <form onSubmit={handleSubmit} className="p-3 border rounded shadow-sm">
-        <div className="mb-3">
+      <form onSubmit={handleSubmit}>
+        <div className="form-row">
           <label className="form-label">Fecha:</label>
           <input
             type="date"
-            className="form-control"
+            className="form-input"
             value={form.fecha}
             onChange={(e) => setForm({ ...form, fecha: e.target.value })}
             min={new Date().toISOString().split("T")[0]} 
@@ -86,25 +86,7 @@ function CrearTurnoForm() {
           />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Hora:</label>
-          <select
-            className="form-select"
-            value={form.hora}
-            onChange={(e) => setForm({ ...form, hora: e.target.value })}
-            required
-            disabled={!form.profesionalId || !form.fecha}
-          >
-            <option value="">Seleccione un horario</option>
-            {horarios.map((hora) => (
-              <option key={hora} value={hora} disabled={horasOcupadas.includes(hora)}>
-                {hora} {horasOcupadas.includes(hora) ? "⛔ Ocupado" : ""}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-3">
+        <div className="form-row">
           <label className="form-label">Profesional:</label>
           <select
             className="form-select"
@@ -123,18 +105,36 @@ function CrearTurnoForm() {
           </select>
         </div>
 
-        <div className="mb-3">
+        <div className="form-col">
+          <label className="form-label">Hora:</label>
+          <select
+            className="form-select"
+            value={form.hora}
+            onChange={(e) => setForm({ ...form, hora: e.target.value })}
+            required
+            disabled={!form.profesionalId || !form.fecha}
+          >
+            <option value="">Seleccione un horario</option>
+            {horarios.map((hora) => (
+              <option key={hora} value={hora} disabled={horasOcupadas.includes(hora)}>
+                {hora} {horasOcupadas.includes(hora) ? "⛔ Ocupado" : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-col">
           <label className="form-label">DNI del paciente:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             value={form.pacienteDni}
             onChange={(e) => setForm({ ...form, pacienteDni: e.target.value })}
             required
           />
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
+        <button type="submit" className="submit-btn" disabled={loading}>
           {loading ? "Creando..." : "Crear turno"}
         </button>
 

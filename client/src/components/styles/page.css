@@ -1,0 +1,146 @@
+/*ESTILO GENERAL DE LAS PÁGINAS*/
+
+.container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+  max-width: 800px;
+}
+
+
+h2 {
+  color: #2c2c2c;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+h3 {
+  color: #3a80e9;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+
+.text-muted {
+  color: #6c757d !important;
+  font-size: 0.95rem;
+}
+
+/* botones */
+.btn-sanat {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+.btn-sanat-primary {
+  background-color: #3a80e9;
+  color: white;
+}
+.btn-sanat-primary:hover {
+  background-color: #316fce;
+  transform: translateY(-2px);
+}
+
+.btn-sanat-success {
+  background-color: #42b883;
+  color: white;
+}
+.btn-sanat-success:hover {
+  background-color: #37996f;
+  transform: translateY(-2px);
+}
+
+.btn-sanat-secondary {
+  background-color: #f4f5f7;
+  color: #2c2c2c;
+}
+.btn-sanat-secondary:hover {
+  background-color: #e4e6ea;
+  transform: translateY(-2px);
+}
+
+.btn-sanat-lg {
+  padding: 14px 26px;
+  font-size: 1.05rem;
+}
+
+.btn-sanat-block {
+  display: block;
+  width: 100%;
+}
+
+
+.menu-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+
+.container {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* media responsive */
+@media (max-width: 576px) {
+  .btn-sanat-lg {
+    width: 100%;
+  }
+}
+
+.btn-sanat-info {
+  background-color: #e8f0ff;
+  color: #3a80e9;
+  border: 1px solid #c7dafc;
+}
+
+.btn-sanat-info:hover {
+  background-color: #d7e5fc;
+  transform: translateY(-2px);
+}
+
+/* botones*/
+.btn-sanat-primary {
+  background-color: #3a80e9;   
+  color: white;
+  box-shadow: 0 2px 5px rgba(58, 128, 233, 0.25);
+}
+.btn-sanat-primary:hover {
+  background-color: #316fce;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(58, 128, 233, 0.35);
+}
+
+/* botones secundarios*/
+.btn-sanat-info {
+  background-color: #e8f0ff;
+  color: #3a80e9;
+  border: 1px solid #c7dafc;
+}
+.btn-sanat-info:hover {
+  background-color: #d7e5fc;
+  transform: translateY(-2px);
+}

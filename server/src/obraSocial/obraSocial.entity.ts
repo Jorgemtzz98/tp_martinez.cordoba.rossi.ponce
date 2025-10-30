@@ -7,10 +7,8 @@ import { Profesional } from "../profesional/profesional.entity.js"
 export class ObraSocial extends BaseEntity {
     @Property({nullable: false})
     nombre!: string;
-    @ManyToMany (() => Paciente, (paciente) => paciente.obrasocial,{
-        mappedBy: 'pacientes'
-    })
-    pacientes = new Collection <Paciente> (this);
+    @OneToMany(() => Paciente, (paciente) => paciente.obrasocial)
+    pacientes = new Collection<Paciente>(this);
     @ManyToMany (() => Profesional, (profesional) => profesional.obrasocial,{
         mappedBy: 'profesionales'
     })

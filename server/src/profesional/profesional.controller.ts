@@ -54,6 +54,7 @@ async function remove(req: Request, res:Response) {
         const id = Number.parseInt(req.params.id)
         const profesional = em.getReference(Profesional, id)
         await em.removeAndFlush(profesional)
+        res.status(200).json({ message: "Profesional eliminado correctamente" });
     } catch (error: any) {
         res.status(500).json({message: error.message})
     }

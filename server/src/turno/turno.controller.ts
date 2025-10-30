@@ -10,8 +10,8 @@ async function add(req:Request, res:Response) {
     const em = orm.em.fork();
     const { fecha, hora, profesionalId, pacienteDni } = req.body;
     try {
-        const paciente = await em.findOne(Paciente, { dni: pacienteDni });
-        if (!paciente) {
+        const pacienteconst = await em.findOne(Paciente, { dni: pacienteDni });
+        if (!pacienteconst) {
             return res.status(404).json({ message: "Paciente no encontrado" });
         }
 
@@ -36,9 +36,9 @@ async function add(req:Request, res:Response) {
             fecha,
             hora,
             profesional,
+            paciente: pacienteconst,
         });
 
-        turno.pacientes.add(paciente);
 
         await em.persistAndFlush(turno);
 
@@ -67,7 +67,7 @@ async function findOne(req:Request, res:Response) {
 async function find(req:Request, res:Response) {
     try{
         const turnos = await em.find(Turno, {},{
-            populate: ['pacientes', 'profesional'],
+            populate: ['paciente', 'profesional'],
         })
         res.status(200).json({message: 'Todos los turnos encontrados:', data: turnos})
     } catch (error: any) {
@@ -80,7 +80,11 @@ async function update(req: Request, res:Response) {
     try{
         const id = Number.parseInt(req.params.id) 
         const turno = em.getReference(Turno, id)
-        em.assign(turno, req.body)
+        const { fecha, hora, profesionalId } = req.body
+        em.assign(turno, { fecha, hora })
+        if (profesionalId) {
+        turno.profesional = em.getReference(Profesional, Number(profesionalId))
+        }
         await em.flush()
         res.status(200).json({message: 'Modificación completada'})
     } catch (error) {
@@ -94,6 +98,7 @@ async function remove(req: Request, res:Response) {
         const id = Number.parseInt(req.params.id)
         const turno = em.getReference(Turno, id)
         await em.removeAndFlush(turno)
+        res.status(200).json({ message: "Turno eliminado correctamente" });
     } catch (error: any) {
         res.status(500).json({message: error.message})
     }
@@ -103,22 +108,16 @@ async function remove(req: Request, res:Response) {
 async function getTurnosOcupados(req: Request, res: Response) {
   const em = orm.em.fork();
   const { profesionalId, fecha } = req.query;
-
   try {
     if (!profesionalId || !fecha) {
       return res.status(400).json({ message: "Faltan parámetros" });
     }
-
     const profesionalIdNum = Number(profesionalId);
-
     const turnos = await em.find(Turno, {
       profesional: profesionalIdNum,
       fecha: fecha as string,
     });
-
-
     const horasOcupadas = turnos.map((t) => t.hora);
-
     res.status(200).json(horasOcupadas);
   } catch (error: any) {
     console.error("Error obteniendo turnos ocupados:", error);

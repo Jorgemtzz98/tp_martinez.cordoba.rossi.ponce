@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "seed": "node dist/scripts/seed-obraSocial.js && node dist/scripts/seed-especialidades.js ",
     "build": "tsc -p ./tsconfig.json",
     "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\""
   },

@@ -5,9 +5,9 @@ import { MySqlDriver } from '@mikro-orm/mysql';
 export const orm = await MikroORM.init({
     entities: ['dist/**/*.entity.js'],
     entitiesTs: ['src/**/*.entity.ts'],
-    dbName: 'sanatorio',
+    dbName: 'bxodewa53yqcrcpuj86u',
     driver: MySqlDriver,
-    clientUrl: 'mysql://root:root@localhost:3306/sanatorio', //mysql://username:password@URL/nameDB
+    clientUrl: 'mysql://uulllhbxn96dz9d9:ntC1jKnumcyZpHys9Pym@bxodewa53yqcrcpuj86u-mysql.services.clever-cloud.com:3306/bxodewa53yqcrcpuj86u', //mysql://username:password@URL/nameDB
     highlighter: new SqlHighlighter(),
     debug: true,
     schemaGenerator: {

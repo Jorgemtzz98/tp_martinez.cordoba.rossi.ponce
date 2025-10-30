@@ -1,4 +1,4 @@
-import { Entity, Property, OneToMany, ManyToMany, Collection, Cascade } from "@mikro-orm/core";
+import { Entity, Property, OneToMany, ManyToOne, ManyToMany, Collection, Cascade } from "@mikro-orm/core";
 import { BaseEntity } from "../shared/db/baseEntity.entity.js"
 import { Turno } from "../turno/turno.entity.js"
 import { ObraSocial} from "../obraSocial/obraSocial.entity.js"
@@ -15,12 +15,8 @@ export class Paciente extends BaseEntity {
     email!: string
     @Property({nullable: false}) 
     telefono!: string
-    @ManyToMany (() => Turno, (turno) => turno.pacientes,{
-        mappedBy:'turnos'
-    })
+    @OneToMany (() => Turno, (turno) => turno.paciente)
     turnos = new Collection<Turno>(this)
-    @ManyToMany (() => ObraSocial, (obrasocial) => obrasocial.pacientes,{
-    owner: true
-    })
-    obrasocial = new Collection<ObraSocial>(this)
+    @ManyToOne(() => ObraSocial)
+    obrasocial!: ObraSocial;
 }

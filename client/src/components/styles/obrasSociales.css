@@ -1,0 +1,67 @@
+.obras-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.titulo-obras {
+  color: #007bff;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.obra-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.obra-img {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.info-obras {
+  margin-top: 50px;
+  background: #f0f8ff;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info-obras h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.info-obras p {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.btn-contacto {
+  background-color: #25D366; 
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.btn-contacto:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.03);
+}

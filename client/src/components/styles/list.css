@@ -20,6 +20,53 @@ button.submit-btn {
   cursor: pointer;
 }
 
+.btn-editar {
+  background-color: #FFF212;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-editar:hover {
+  background-color: #e6e600;
+  border: none;
+  border-radius: 8px;
+}
+
+.btn-eliminar {
+  background-color: #FF3B3B;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-eliminar:hover {
+  background-color: #e03333;
+  border: none;
+  border-radius: 8px;
+}
+
+.btn-guardar {
+  background-color: rgb(5, 189, 5);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-guardar:hover{
+  background-color: rgb(35, 185, 35)
+}
+
 .list-item {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -27,9 +74,7 @@ button.submit-btn {
   margin-bottom: 8px;
 }
 
-/* 
-   Breakpoint SM ≥ 640px
- */
+
 @media (min-width: 640px) {
   .card h4 {
     font-size: 1.3rem;
@@ -43,9 +88,7 @@ button.submit-btn {
   }
 }
 
-/* 
-   Breakpoint MD ≥ 768px
-*/
+
 @media (min-width: 768px) {
   .card {
     padding: 20px;
@@ -62,9 +105,7 @@ button.submit-btn {
   }
 }
 
-/* 
-   Breakpoint LG ≥ 1024px
- */
+
 @media (min-width: 1024px) {
   .card {
     padding: 25px;

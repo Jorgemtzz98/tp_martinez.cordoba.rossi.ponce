@@ -1,0 +1,126 @@
+.nav-sanat {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+/* boton menu hamb */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.bar {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.open .bar:nth-child(1) { transform: rotate(45deg) translate(4px,4.5px); }
+.hamburger.open .bar:nth-child(2) { opacity: 0; }
+.hamburger.open .bar:nth-child(3) { transform: rotate(-45deg) translate(4px,-4.5px); }
+
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.nav-links.show {
+  max-height: 500px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+  background-color: rgba(0,123,255,0.1);
+}
+
+/* media escritorio */
+@media (min-width: 768px) {
+  .hamburger { display: none; }
+
+  .nav-links {
+    flex-direction: row;
+    max-height: none;
+    width: auto;
+    background: transparent;
+    overflow: visible;
+    gap: 12px;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-size: 1.1rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.brand:hover {
+  color: #007bff;
+  transform: translateY(-1px);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #007bff10; 
+  border-radius: 50%;
+  padding: 6px;
+  margin-right: 8px;
+
+}
+
+.brand:hover .brand-logo {
+  background: #007bff20;
+}
+
+.brand-logo img {
+  height: 34px;
+  width: 34px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: inline-block;
+}
+
+.brand-accent {
+  color: #007bff;
+  font-weight: 700;
+}

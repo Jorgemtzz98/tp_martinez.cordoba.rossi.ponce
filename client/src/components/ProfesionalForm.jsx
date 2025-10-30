@@ -52,35 +52,35 @@ function ProfesionalForm() {
   };
 
   return (
-    <div className="card p-3 mb-3">
+    <div className="card">
       <h4>Registrar Profesional</h4>
-      <div className="row g-2">
-        <div className="col-md-6">
+      <div className="form-row">
+        <div className="form-col">
           <input
-            className="form-control"
+            className="form-input"
             placeholder="Nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />
         </div>
-        <div className="col-md-6">
+        <div className="form-col">
           <input
-            className="form-control"
+            className="form-input"
             placeholder="Apellido"
             value={apellido}
             onChange={(e) => setApellido(e.target.value)}
           />
         </div>
-        <div className="col-md-6">
+        <div className="form-col">
           <input
-            className="form-control"
+            className="form-input"
             placeholder="Matrícula"
             value={matricula}
             onChange={(e) => setMatricula(e.target.value)}
           />
         </div>
 
-        <div className="col-md-6">
+        <div className="form-col">
           <label className="form-label">Especialidades Médicas</label>
           <select
             multiple
@@ -98,7 +98,7 @@ function ProfesionalForm() {
         </div>
       </div>
 
-      <button className="btn btn-success mt-3" onClick={add}>
+      <button className="submit-btn" onClick={add}>
         Registrar
       </button>
     </div>
